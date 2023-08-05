@@ -1,0 +1,28 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!--  Background Colors  -->
+    <Color x:Key="PrimaryBg">#232F34</Color>
+    <Color x:Key="SecondaryBg">#344955</Color>
+    <Color x:Key="TerciaryBg">#f9f9f9</Color>
+    <Color x:Key="SpecialBg">#3700B3</Color>
+
+    <SolidColorBrush x:Key="SecondaryBgBrush">#344955</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryBgBrush">#232F34</SolidColorBrush>
+    <SolidColorBrush x:Key="TerciaryBgBrush">#f9f9f9</SolidColorBrush>
+    <SolidColorBrush x:Key="SpecialBgBrush">#3700B3</SolidColorBrush>
+
+    <!--  Border Colors  -->
+    <SolidColorBrush x:Key="Border1">#a0a0a0</SolidColorBrush>
+    <SolidColorBrush x:Key="Border2">#232F34</SolidColorBrush>
+
+    <!--  Font Colors  -->
+    <SolidColorBrush x:Key="PrimaryTextColor" Color="#232F34" />
+    <SolidColorBrush x:Key="SecondaryTextColor" Color="#a0a0a0" />
+    <SolidColorBrush x:Key="UniqueTextColor" Color="#6200EE" />
+
+    <!--  ERROR  -->
+    <SolidColorBrush x:Key="ErrorBrush">#ff0f0f</SolidColorBrush>
+    <Color x:Key="ErrorColor">#ff0f0f</Color>
+</ResourceDictionary>
