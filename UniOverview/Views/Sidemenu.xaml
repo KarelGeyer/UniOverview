@@ -4,9 +4,49 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UniOverview.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d">
+    <StackPanel>
+        <Button Style="{StaticResource MenuButton}" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon 
+                    Kind="SchoolOutline" 
+                    Foreground="White" 
+                    Grid.Column="0" 
+                    VerticalAlignment="Bottom" 
+                    Height="30" 
+                    Width="30" 
+                    Margin="0 0 15 0"/>
+                <TextBlock Text="Subjects" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+
+        <Button Style="{StaticResource MenuButton}" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon 
+                    Kind="FileDocumentMultiple" 
+                    Foreground="White" 
+                    Grid.Column="0" 
+                    VerticalAlignment="Bottom" 
+                    Height="30" 
+                    Width="30" 
+                    Margin="0 0 15 0"/>
+                <TextBlock Text="Materials" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+
+        <Button Style="{StaticResource MenuButton}" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon 
+                    Kind="AlphabeticalVariant" 
+                    Foreground="White" 
+                    Grid.Column="0" 
+                    VerticalAlignment="Bottom" 
+                    Height="30" 
+                    Width="30" 
+                    Margin="0 0 15 0"/>
+                <TextBlock Text="Grades" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+    </StackPanel>
 </UserControl>

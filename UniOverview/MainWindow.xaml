@@ -3,10 +3,34 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:UniOverview"
+        xmlns:views="clr-namespace:UniOverview.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="650" Width="1000">
+    <Border Background="{StaticResource PrimaryBgBrush}">
+        <Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MaxWidth="300px"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" MaxHeight="120px" MinHeight="100px"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
 
-    </Grid>
+                <Border  Grid.Row="1" Grid.Column="0" BorderBrush="{StaticResource SecondaryBgBrush}" BorderThickness="1">
+                    <StackPanel>
+                        <views:Sidemenu />
+                    </StackPanel>
+                </Border>
+                <Border  Grid.Row="1" Grid.Column="1">
+                    <StackPanel>
+                        <views:ContentWindow />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>
