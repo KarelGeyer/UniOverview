@@ -70,6 +70,8 @@ ipch/
 *.cachefile
 
 # Visual Studio profiler
+/.vs/
+*.vsidx
 *.psess
 *.vsp
 *.vspx
@@ -189,5 +191,4 @@ git_stats/*
 StyleCop.Cache
 bin
 obj
-/.vs/
-*.vsidx
+
