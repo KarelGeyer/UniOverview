@@ -6,5 +6,8 @@ using System.Threading.Tasks;
 
 namespace UniOverview.ViewModels.Subjects
 {
-    public class SubjectsBaseViewModel : ViewModelBase { }
+    public class SubjectsBaseViewModel : ViewModelBase
+    {
+        public SubjectsBaseViewModel() { }
+    }
 }

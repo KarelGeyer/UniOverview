@@ -4,10 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UniOverview.Views"
+             xmlns:viewModels="clr-namespace:UniOverview.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d">
     <StackPanel>
-        <Button Style="{StaticResource MenuButton}" VerticalAlignment="Center">
+        <Button Style="{StaticResource MenuButton}" VerticalAlignment="Center" Command="{Binding NavigationCommand}" CommandParameter="Subjects">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon 
                     Kind="SchoolOutline" 
@@ -21,7 +22,7 @@
             </StackPanel>
         </Button>
 
-        <Button Style="{StaticResource MenuButton}" VerticalAlignment="Center">
+        <Button Style="{StaticResource MenuButton}" VerticalAlignment="Center" Command="{Binding NavigationCommand}" CommandParameter="Materials">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon 
                     Kind="FileDocumentMultiple" 
@@ -35,7 +36,7 @@
             </StackPanel>
         </Button>
 
-        <Button Style="{StaticResource MenuButton}" VerticalAlignment="Center">
+        <Button Style="{StaticResource MenuButton}" VerticalAlignment="Center" Command="{Binding NavigationCommand}" CommandParameter="Grades">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon 
                     Kind="AlphabeticalVariant" 

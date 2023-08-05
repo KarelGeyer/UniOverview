@@ -6,17 +6,24 @@
              xmlns:gradesView="clr-namespace:UniOverview.Views.GradesViews"
              xmlns:materialsView="clr-namespace:UniOverview.Views.MaterialsViews"
              xmlns:subjectViews="clr-namespace:UniOverview.Views.SubjectsViews"
+             xmlns:gradesViewModels="clr-namespace:UniOverview.ViewModels.Grades"
+             xmlns:materialsViewModels="clr-namespace:UniOverview.ViewModels.Materials"
+             xmlns:subjectViewModels="clr-namespace:UniOverview.ViewModels.Subjects"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel>
-            <gradesView:GradesView />
-        </StackPanel>
-        <StackPanel>
-            <materialsView:MaterialsView />
-        </StackPanel>
-        <StackPanel>
-            <subjectViews:SubjectsView />
-        </StackPanel>
+        <ContentControl Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type gradesViewModels:GradesBaseViewModel}">
+                    <gradesView:GradesView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type materialsViewModels:MaterialsBaseViewModel}">
+                    <materialsView:MaterialsView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type subjectViewModels:SubjectsBaseViewModel}">
+                    <subjectViews:SubjectsView />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
     </Grid>
 </UserControl>

@@ -7,6 +7,8 @@
         xmlns:local="clr-namespace:UniOverview"
         xmlns:views="clr-namespace:UniOverview.Views"
         mc:Ignorable="d"
+        Background="Transparent"
+        ResizeMode="CanResize"
         Title="MainWindow" Height="650" Width="1000">
     <Border Background="{StaticResource PrimaryBgBrush}">
         <Grid>
