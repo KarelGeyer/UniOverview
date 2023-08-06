@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UniOverview.Views.GradesViews
+namespace UniOverview.Views
 {
     /// <summary>
-    /// Interaction logic for GradesView.xaml
+    /// Interaction logic for HomeView.xaml
     /// </summary>
-    public partial class GradesView : UserControl
+    public partial class HomeView : UserControl
     {
-        public GradesView()
+        public HomeView()
         {
             InitializeComponent();
         }

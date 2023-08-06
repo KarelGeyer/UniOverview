@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UniOverview.ViewModels.Grades
+namespace UniOverview.ViewModels.Home
 {
-    public class GradesBaseViewModel : ViewModelBase { }
+    public class HomeBaseViewModel : ViewModelBase { }
 }
