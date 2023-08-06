@@ -11,6 +11,7 @@
         ResizeMode="CanResize"
         Title="MainWindow" Height="650" Width="1000">
     <Border Background="{StaticResource PrimaryBgBrush}">
+
         <Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -18,19 +19,28 @@
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" MaxHeight="120px" MinHeight="100px"/>
-                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*" MaxHeight="120px" MinHeight="60px"/>
+                    <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
+                
+                <Border  Grid.Row="0" Grid.Column="0" BorderBrush="{StaticResource SecondaryBgBrush}" BorderThickness="0 0 1 0">
+                </Border>
 
-                <Border  Grid.Row="1" Grid.Column="0" BorderBrush="{StaticResource SecondaryBgBrush}" BorderThickness="1">
+                <Border  Grid.Row="0" Grid.Column="1" BorderBrush="{StaticResource SecondaryBgBrush}" BorderThickness="0 0 0 1">
+                </Border>
+
+                <Border  Grid.Row="1" Grid.Column="0" BorderBrush="{StaticResource SecondaryBgBrush}" BorderThickness="0 0 1 0">
                     <StackPanel>
                         <views:Sidemenu />
                     </StackPanel>
                 </Border>
+                
                 <Border  Grid.Row="1" Grid.Column="1">
-                    <StackPanel>
-                        <views:ContentWindow />
-                    </StackPanel>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <StackPanel>
+                            <views:ContentWindow />
+                        </StackPanel>
+                    </ScrollViewer>
                 </Border>
             </Grid>
         </Grid>

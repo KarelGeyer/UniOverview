@@ -8,6 +8,20 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d">
     <StackPanel>
+        <Button Style="{StaticResource MenuButton}" VerticalAlignment="Center" Command="{Binding NavigationCommand}" CommandParameter="Home">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon 
+                    Kind="Home" 
+                    Foreground="White" 
+                    Grid.Column="0" 
+                    VerticalAlignment="Bottom" 
+                    Height="30"
+                    Width="30" 
+                    Margin="0 0 15 0"/>
+                <TextBlock Text="Home" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+        
         <Button Style="{StaticResource MenuButton}" VerticalAlignment="Center" Command="{Binding NavigationCommand}" CommandParameter="Subjects">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon 
@@ -33,20 +47,6 @@
                     Width="30" 
                     Margin="0 0 15 0"/>
                 <TextBlock Text="Materials" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Button>
-
-        <Button Style="{StaticResource MenuButton}" VerticalAlignment="Center" Command="{Binding NavigationCommand}" CommandParameter="Grades">
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon 
-                    Kind="AlphabeticalVariant" 
-                    Foreground="White" 
-                    Grid.Column="0" 
-                    VerticalAlignment="Bottom" 
-                    Height="30" 
-                    Width="30" 
-                    Margin="0 0 15 0"/>
-                <TextBlock Text="Grades" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
     </StackPanel>
