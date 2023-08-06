@@ -20,6 +20,7 @@
     <!--  Font Colors  -->
     <SolidColorBrush x:Key="PrimaryTextColor" Color="#232F34" />
     <SolidColorBrush x:Key="SecondaryTextColor" Color="#a0a0a0" />
+    <SolidColorBrush x:Key="LightTextColor" Color="#F0F0F0" />
     <SolidColorBrush x:Key="UniqueTextColor" Color="#6200EE" />
 
     <!--  ERROR  -->

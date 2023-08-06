@@ -30,7 +30,7 @@
                                         <ColorAnimation
                                             Storyboard.TargetName="ButtonBorder"
                                             Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            To="{StaticResource ButtonHover1Color}"
+                                            To="{StaticResource PrimaryBg}"
                                             Duration="0:0:0.1" />
                                     </Storyboard>
                                 </BeginStoryboard>
