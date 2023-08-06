@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using UniOverview.Services;
 using UniOverview.ViewModels;
-using UniOverview.ViewModels.Grades;
+using UniOverview.ViewModels.Home;
 using UniOverview.ViewModels.Materials;
 using UniOverview.ViewModels.Subjects;
 
@@ -33,10 +33,9 @@ namespace UniOverview
                         //VIEWMODELS
                         services.AddSingleton<MainViewModel>();
                         //// Flipping table view models
-                        services.AddSingleton<GradesBaseViewModel>();
                         services.AddSingleton<MaterialsBaseViewModel>();
                         services.AddSingleton<SubjectsBaseViewModel>();
-                        services.AddSingleton<SubjectsBaseViewModel>();
+                        services.AddSingleton<HomeBaseViewModel>();
                         services.AddSingleton<SideMenuViewModel>();
 
                         _serviceProvider = services.BuildServiceProvider();
@@ -48,7 +47,12 @@ namespace UniOverview
         protected override void OnStartup(StartupEventArgs e)
         {
             NavigationService navigationService = _serviceProvider.GetService<NavigationService>();
-            navigationService.CurrentViewModel = _serviceProvider.GetService<GradesBaseViewModel>();
+            navigationService.CurrentViewModel = _serviceProvider.GetService<HomeBaseViewModel>();
+            navigationService.NavHomeViewModel = _serviceProvider.GetService<HomeBaseViewModel>();
+            navigationService.NavMaterialsViewModel =
+                _serviceProvider.GetService<MaterialsBaseViewModel>();
+            navigationService.NavSubjectsViewModel =
+                _serviceProvider.GetService<SubjectsBaseViewModel>();
 
             MainWindow mainWindow =
                 new() { DataContext = _serviceProvider.GetService<MainViewModel>() };

@@ -11,6 +11,17 @@ namespace UniOverview.Services
     {
         public event Action CurrentViewModelChanged;
         private ViewModelBase ViewModel;
+        private ViewModelBase HomeViewModel;
+        private ViewModelBase MaterialsViewModel;
+        private ViewModelBase SubjectsViewModel;
+
+        private Dictionary<string, ViewModelBase> ViewModels;
+
+        public NavigationService()
+        {
+            ViewModels = new Dictionary<string, ViewModelBase>();
+        }
+
         public ViewModelBase CurrentViewModel
         {
             get => ViewModel;
@@ -19,6 +30,39 @@ namespace UniOverview.Services
                 ViewModel = value;
                 OnCurrentViewModelChanged();
             }
+        }
+
+        public ViewModelBase NavHomeViewModel
+        {
+            get => HomeViewModel;
+            set
+            {
+                HomeViewModel = value;
+                ViewModels.Add("Home", value);
+            }
+        }
+        public ViewModelBase NavMaterialsViewModel
+        {
+            get => MaterialsViewModel;
+            set
+            {
+                MaterialsViewModel = value;
+                ViewModels.Add("Materials", value);
+            }
+        }
+        public ViewModelBase NavSubjectsViewModel
+        {
+            get => SubjectsViewModel;
+            set
+            {
+                SubjectsViewModel = value;
+                ViewModels.Add("Subjects", value);
+            }
+        }
+
+        public Dictionary<string, ViewModelBase> GetExistingViewModels
+        {
+            get => ViewModels;
         }
 
         private void OnCurrentViewModelChanged()
