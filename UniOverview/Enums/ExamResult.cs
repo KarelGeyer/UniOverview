@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace UniOverview.Enums
 {
-    public enum ExamResult
-    {
-        Passed,
-        Failed,
-        Missed
-    }
+	public enum ExamResult
+	{
+		Passed,
+		Failed,
+		Missed,
+		NotYetGraded,
+	}
 }

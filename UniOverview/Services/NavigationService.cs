@@ -7,67 +7,80 @@ using UniOverview.ViewModels;
 
 namespace UniOverview.Services
 {
-    public class NavigationService
-    {
-        public event Action CurrentViewModelChanged;
-        private ViewModelBase ViewModel;
-        private ViewModelBase HomeViewModel;
-        private ViewModelBase MaterialsViewModel;
-        private ViewModelBase SubjectsViewModel;
+	public class NavigationService
+	{
+		public event Action CurrentViewModelChanged;
+		private ViewModelBase ViewModel;
+		private ViewModelBase HomeViewModel;
+		private ViewModelBase MaterialsViewModel;
+		private ViewModelBase SubjectsViewModel;
+		private ViewModelBase SubjectDetailViewModel;
 
-        private Dictionary<string, ViewModelBase> ViewModels;
+		private Dictionary<string, ViewModelBase> ViewModels;
 
-        public NavigationService()
-        {
-            ViewModels = new Dictionary<string, ViewModelBase>();
-        }
+		public NavigationService()
+		{
+			ViewModels = new Dictionary<string, ViewModelBase>();
+		}
 
-        public ViewModelBase CurrentViewModel
-        {
-            get => ViewModel;
-            set
-            {
-                ViewModel = value;
-                OnCurrentViewModelChanged();
-            }
-        }
+		public ViewModelBase CurrentViewModel
+		{
+			get => ViewModel;
+			set
+			{
+				ViewModel = value;
+				OnCurrentViewModelChanged();
+			}
+		}
 
-        public ViewModelBase NavHomeViewModel
-        {
-            get => HomeViewModel;
-            set
-            {
-                HomeViewModel = value;
-                ViewModels.Add("Home", value);
-            }
-        }
-        public ViewModelBase NavMaterialsViewModel
-        {
-            get => MaterialsViewModel;
-            set
-            {
-                MaterialsViewModel = value;
-                ViewModels.Add("Materials", value);
-            }
-        }
-        public ViewModelBase NavSubjectsViewModel
-        {
-            get => SubjectsViewModel;
-            set
-            {
-                SubjectsViewModel = value;
-                ViewModels.Add("Subjects", value);
-            }
-        }
+		public ViewModelBase NavHomeViewModel
+		{
+			get => HomeViewModel;
+			set
+			{
+				HomeViewModel = value;
+				ViewModels.Add("Home", value);
+			}
+		}
 
-        public Dictionary<string, ViewModelBase> GetExistingViewModels
-        {
-            get => ViewModels;
-        }
+		public ViewModelBase NavMaterialsViewModel
+		{
+			get => MaterialsViewModel;
+			set
+			{
+				MaterialsViewModel = value;
+				ViewModels.Add("Materials", value);
+			}
+		}
 
-        private void OnCurrentViewModelChanged()
-        {
-            CurrentViewModelChanged?.Invoke();
-        }
-    }
+		public ViewModelBase NavSubjectsViewModel
+		{
+			get => SubjectsViewModel;
+			set
+			{
+				SubjectsViewModel = value;
+				ViewModels.Add("Subjects", value);
+			}
+		}
+
+		public ViewModelBase NavSubjectDetailViewModel
+		{
+			get => SubjectDetailViewModel;
+			set
+			{
+				SubjectDetailViewModel = value;
+				ViewModels.Add("SubjectDetail", value);
+			}
+		}
+
+		public Dictionary<string, ViewModelBase> GetExistingViewModels
+		{
+			get => ViewModels;
+		}
+
+		private void OnCurrentViewModelChanged()
+		{
+			CurrentViewModelChanged?.Invoke();
+		}
+	}
 }

@@ -1,17 +1,24 @@
-﻿<UserControl x:Class="UniOverview.Views.SubjectsViews.SubjectsView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:UniOverview.Views.SubjectsViews"
-             xmlns:converters="clr-namespace:UniOverview.Helpers.Converters"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" >
+﻿<UserControl
+    x:Class="UniOverview.Views.SubjectsViews.SubjectsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commands="clr-namespace:UniOverview.Commands"
+    xmlns:converters="clr-namespace:UniOverview.Helpers.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:UniOverview.Views.SubjectsViews"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
     <UserControl.Resources>
-        <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
-        
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+
         <DataTemplate x:Key="SubjectCardTemplate">
-            <materialDesign:Card HorizontalAlignment="Left" Background="{StaticResource SecondaryBgBrush}" Margin="10" UniformCornerRadius="10" Foreground="{StaticResource LightTextColor}">
+            <materialDesign:Card
+                Margin="10"
+                HorizontalAlignment="Left"
+                Background="{StaticResource SecondaryBgBrush}"
+                Foreground="{StaticResource PrimaryTextColor}"
+                UniformCornerRadius="10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" MinHeight="70" />
@@ -21,104 +28,120 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" MaxWidth="400" />
+                        <ColumnDefinition Width="2*" MaxWidth="400" />
                     </Grid.ColumnDefinitions>
-                    
-                    <StackPanel Grid.Row="0" Grid.Column="0" Margin="10,10,10, 0" Orientation="Horizontal" >
+
+                    <StackPanel
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="10,10,10,0"
+                        Orientation="Horizontal">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                 <ColumnDefinition Width="220"/>
-                                 <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="220" />
+                                <ColumnDefinition Width="60" />
                             </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    Grid.Column="0"
-                                    VerticalAlignment="Center"
-                                    TextWrapping="Wrap"
-                                    FontSize="20"
-                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                    Text="{Binding Name}" />
-                                <Button
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}">
-                                    <materialDesign:PackIcon Kind="{Binding SubjectTypeIcon}" Height="35" Width="35"/>
-                                </Button>
-                            </Grid>
-                        
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                Text="{Binding Name}"
+                                TextWrapping="Wrap" />
+                            <Button
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}">
+                                <materialDesign:PackIcon
+                                    Width="35"
+                                    Height="35"
+                                    Kind="{Binding SubjectTypeIcon}" />
+                            </Button>
+                        </Grid>
+
                     </StackPanel>
-                    
+
                     <Separator
                         Grid.Row="1"
                         Grid.Column="0"
                         Margin="8,0,8,0"
                         Style="{StaticResource MaterialDesignDarkSeparator}" />
-                    
-                    <StackPanel Grid.Row="2" Grid.Column="0" Margin="1,4,1,4" Orientation="Horizontal" Background="{StaticResource PrimaryBgBrush}">
-                        <materialDesign:PackIcon 
-                            Kind="CheckboxMarkedCircle" 
-                            Height="20" 
-                            Width="20" 
-                            Margin="4"
-                            Foreground="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}, ConverterParameter='IsCompleted'}"/>
-                        <TextBlock
-                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                            Margin="4,4,12,4"
-                            Text="Completed" />
-                        <materialDesign:PackIcon 
-                            Kind="CloseCircle" 
-                            Height="20" 
+
+                    <StackPanel
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="1,4,1,4"
+                        Background="{StaticResource PrimaryBgBrush}"
+                        Orientation="Horizontal">
+                        <materialDesign:PackIcon
                             Width="20"
+                            Height="20"
                             Margin="4"
-                            Foreground="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}, ConverterParameter='IsFailed'}"/>
+                            Foreground="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}, ConverterParameter='IsCompleted'}"
+                            Kind="CheckboxMarkedCircle" />
                         <TextBlock
+                            Margin="4,4,12,4"
                             Style="{StaticResource MaterialDesignBody2TextBlock}"
+                            Text="Completed" />
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
                             Margin="4"
+                            Foreground="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}, ConverterParameter='IsFailed'}"
+                            Kind="CloseCircle" />
+                        <TextBlock
+                            Margin="4"
+                            Style="{StaticResource MaterialDesignBody2TextBlock}"
                             Text="Failed" />
                     </StackPanel>
-                    
-                    <Grid Grid.Row="3" Grid.Column="0" Margin="0,5,0,0">
+
+                    <Grid
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Margin="0,5,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock
-                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                            Margin="12,0,0,0"
                             Grid.Column="0"
+                            Margin="12,0,0,0"
+                            Style="{StaticResource MaterialDesignBody2TextBlock}"
                             Text="{Binding Teacher.Name}" />
                         <TextBlock
-                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                            Margin="4,0,0,0"
                             Grid.Column="1"
+                            Margin="4,0,0,0"
+                            Style="{StaticResource MaterialDesignBody2TextBlock}"
                             Text="{Binding Teacher.Surname}" />
                         <TextBlock
-                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                            Margin="0,0,4,0"
                             Grid.Column="2"
+                            Margin="0,0,4,0"
                             HorizontalAlignment="Right"
+                            Style="{StaticResource MaterialDesignBody2TextBlock}"
                             Text="{Binding Credits}" />
                         <TextBlock
-                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                            Margin="0,0,12,0"
                             Grid.Column="3"
+                            Margin="0,0,12,0"
                             HorizontalAlignment="Right"
+                            Style="{StaticResource MaterialDesignBody2TextBlock}"
                             Text="Credits" />
                     </Grid>
-                    
+
                     <StackPanel Grid.Row="4" Grid.Column="0">
                         <Button
+                            Height="35"
                             Margin="8,12,8,12"
                             HorizontalAlignment="Stretch"
-                            Height="35"
-                            Content="DETAILS"
-                            FontSize="16"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             Background="{StaticResource PrimaryBgBrush}"
-                            Click="{Binding RedirectToSubjectDetail}"
+                            Command="{Binding DataContext.NavigationCommand, ElementName=SubjectsList}"
+                            CommandParameter="{Binding Id}"
+                            Content="DETAILS"
+                            FontSize="16"
                             Style="{StaticResource MaterialDesignRaisedDarkButton}" />
                     </StackPanel>
                 </Grid>
@@ -128,15 +151,16 @@
 
 
     <Grid>
-        <ItemsControl 
-            Padding="10"
+        <ItemsControl
+            Name="SubjectsList"
             Width="auto"
             Height="auto"
-            ItemsSource="{Binding Subjects}"
-            ItemTemplate="{StaticResource SubjectCardTemplate}">
+            Padding="10"
+            ItemTemplate="{StaticResource SubjectCardTemplate}"
+            ItemsSource="{Binding Subjects}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>

@@ -6,17 +6,10 @@ using System.Threading.Tasks;
 
 namespace UniOverview.Enums.Subjects
 {
-	public enum SubjectType
+	public enum SubjectDetailDisplayType
 	{
-		A,
-		B,
-		C,
-	}
-
-	public enum SubjectTypeIcon
-	{
-		AlphaACircleOutline,
-		AlphaBCircleOutline,
-		AlphaCCircleOutline,
+		Content,
+		AddExam,
+		AddHomework,
 	}
 }

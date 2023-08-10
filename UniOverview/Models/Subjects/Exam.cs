@@ -8,13 +8,14 @@ using UniOverview.Enums.Subjects;
 
 namespace UniOverview.Models.Subjects
 {
-    public class Exam
-    {
-        public required Guid Id { get; set; }
-        public required int SubjectId { get; set; }
-        public int Points { get; set; }
-        public DateTime Date { get; set; }
-        public ExamResult Result { get; set; }
-        public Grade? Grade { get; set; }
-    }
+	public class Exam
+	{
+		public required Guid Id { get; set; }
+		public required Guid SubjectId { get; set; }
+		public int Points { get; set; }
+		public bool Participated { get; set; }
+		public DateTime Date { get; set; }
+		public ExamResult Result { get; set; }
+		public Grade? Grade { get; set; }
+	}
 }

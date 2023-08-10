@@ -22,6 +22,9 @@
                 <DataTemplate DataType="{x:Type subjectViewModels:SubjectsBaseViewModel}">
                     <subjectViews:SubjectsView />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type subjectViewModels:SubjectViewModel}">
+                    <subjectViews:SubjectDetailView />
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
     </Grid>
