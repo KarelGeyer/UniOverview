@@ -1,15 +1,18 @@
-﻿<UserControl x:Class="UniOverview.Views.ContentWindow"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:views="clr-namespace:UniOverview.Views"
-             xmlns:materialsView="clr-namespace:UniOverview.Views.MaterialsViews"
-             xmlns:subjectViews="clr-namespace:UniOverview.Views.SubjectsViews"
-             xmlns:homeViewModels="clr-namespace:UniOverview.ViewModels.Home"
-             xmlns:materialsViewModels="clr-namespace:UniOverview.ViewModels.Materials"
-             xmlns:subjectViewModels="clr-namespace:UniOverview.ViewModels.Subjects"
-             mc:Ignorable="d">
+﻿<UserControl
+    x:Class="UniOverview.Views.ContentWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:homeViewModels="clr-namespace:UniOverview.ViewModels.Home"
+    xmlns:materialsView="clr-namespace:UniOverview.Views.MaterialsViews"
+    xmlns:materialsViewModels="clr-namespace:UniOverview.ViewModels.Materials"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:subjectViewModels="clr-namespace:UniOverview.ViewModels.Subjects"
+    xmlns:subjectViews="clr-namespace:UniOverview.Views.SubjectsViews"
+    xmlns:teacherViewModels="clr-namespace:UniOverview.ViewModels.Teachers"
+    xmlns:teacherViews="clr-namespace:UniOverview.Views.Teachers"
+    xmlns:views="clr-namespace:UniOverview.Views"
+    mc:Ignorable="d">
     <Grid>
         <ContentControl Content="{Binding CurrentViewModel}">
             <ContentControl.Resources>
@@ -24,6 +27,12 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type subjectViewModels:SubjectViewModel}">
                     <subjectViews:SubjectDetailView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type subjectViewModels:AddNewSubjectViewModel}">
+                    <subjectViews:AddNewSubject />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type teacherViewModels:TeachersBaseViewModel}">
+                    <teacherViews:TeachersView />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

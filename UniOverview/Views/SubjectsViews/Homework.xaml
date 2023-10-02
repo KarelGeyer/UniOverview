@@ -12,7 +12,10 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <ListView Margin="10,0,0,15" ItemsSource="{Binding CurrentSubject.Homeworks}">
+    <ListView
+        Margin="10,0,0,15"
+        Foreground="{StaticResource PrimaryTextColor}"
+        ItemsSource="{Binding CurrentSubject.Homeworks}">
         <ListView.View>
             <GridView>
                 <GridViewColumn Width="100" Header="Completed">
@@ -21,6 +24,8 @@
                             <CheckBox
                                 Margin="20,0"
                                 VerticalAlignment="Center"
+                                Background="{StaticResource PrimaryTextColor}"
+                                Foreground="{StaticResource PrimaryTextColor}"
                                 IsChecked="{Binding IsCompleted}" />
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
@@ -44,12 +49,41 @@
                 <GridViewColumn Header="Points">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Margin="20,0" Text="{Binding Points}">
+                            <TextBlock
+                                Margin="20,0"
+                                Foreground="{StaticResource PrimaryTextColor}"
+                                Text="{Binding Points}">
                                 <TextBlock>
                                     /
-                                    <TextBlock Text="{Binding MaxPoints}" />
+                                    <TextBlock Foreground="{StaticResource PrimaryTextColor}" Text="{Binding MaxPoints}" />
                                 </TextBlock>
                             </TextBlock>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridViewColumn>
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                Command="{Binding DataContext.SetCurrentHomeworkCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                CommandParameter="{Binding Id}"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                ToolTip="MaterialDesignFloatingActionMiniDarkButton">
+                                <materialDesign:PackIcon Kind="Pencil" />
+                            </Button>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridViewColumn>
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                ToolTip="MaterialDesignFloatingActionMiniDarkButton">
+                                <materialDesign:PackIcon Kind="Delete" />
+                            </Button>
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>

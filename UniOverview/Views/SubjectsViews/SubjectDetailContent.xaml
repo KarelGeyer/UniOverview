@@ -13,7 +13,23 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition>
+                <RowDefinition.Style>
+                    <Style TargetType="RowDefinition">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding VisibileContent}" Value="0">
+                                <Setter Property="Height" Value="*" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding VisibileContent}" Value="1">
+                                <Setter Property="Height" Value="5" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding VisibileContent}" Value="2">
+                                <Setter Property="Height" Value="5" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </RowDefinition.Style>
+            </RowDefinition>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -38,6 +54,7 @@
                         <TextBlock
                             Margin="0,0,50,0"
                             HorizontalAlignment="Left"
+                            Foreground="{StaticResource PrimaryTextColor}"
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                             Text="{Binding CurrentSubject.ShortName}"
                             TextTrimming="WordEllipsis"
@@ -46,6 +63,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
                                 HorizontalAlignment="Left"
+                                Foreground="{StaticResource PrimaryTextColor}"
                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                 Text="Grade: "
                                 TextTrimming="WordEllipsis"
@@ -54,6 +72,7 @@
                             <TextBlock
                                 Margin="5,0,50,0"
                                 HorizontalAlignment="Left"
+                                Foreground="{StaticResource PrimaryTextColor}"
                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                 Text="{Binding CurrentSubject.Grade}"
                                 TextTrimming="WordEllipsis"
@@ -63,6 +82,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
                                 HorizontalAlignment="Left"
+                                Foreground="{StaticResource PrimaryTextColor}"
                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                 Text="Points: "
                                 TextTrimming="WordEllipsis"
@@ -70,6 +90,7 @@
                             <TextBlock
                                 Margin="5,0,50,0"
                                 HorizontalAlignment="Left"
+                                Foreground="{StaticResource PrimaryTextColor}"
                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                 Text="{Binding CurrentSubject.Points}"
                                 TextTrimming="WordEllipsis"
@@ -87,6 +108,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
                                 HorizontalAlignment="Left"
+                                Foreground="{StaticResource PrimaryTextColor}"
                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                 Text="Form of Completion"
                                 TextTrimming="WordEllipsis"
@@ -94,6 +116,7 @@
                             <TextBlock
                                 Margin="5,0,50,0"
                                 HorizontalAlignment="Left"
+                                Foreground="{StaticResource PrimaryTextColor}"
                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                 Text="{Binding CurrentSubject.FormOfCompletion}"
                                 TextTrimming="WordEllipsis"
@@ -103,6 +126,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
                                 HorizontalAlignment="Left"
+                                Foreground="{StaticResource PrimaryTextColor}"
                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                 Text="Type of Completion "
                                 TextTrimming="WordEllipsis"
@@ -110,6 +134,7 @@
                             <TextBlock
                                 Margin="5,0,50,0"
                                 HorizontalAlignment="Left"
+                                Foreground="{StaticResource PrimaryTextColor}"
                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                 Text="{Binding CurrentSubject.TypeOfCompletion}"
                                 TextTrimming="WordEllipsis"
@@ -126,6 +151,7 @@
                         Orientation="Horizontal">
                         <TextBlock
                             HorizontalAlignment="Left"
+                            Foreground="{StaticResource PrimaryTextColor}"
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                             Text="{Binding CurrentSubject.Teacher.Name}"
                             TextTrimming="WordEllipsis"
@@ -133,6 +159,7 @@
                         <TextBlock
                             Margin="5,0,50,0"
                             HorizontalAlignment="Left"
+                            Foreground="{StaticResource PrimaryTextColor}"
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                             Text="{Binding CurrentSubject.Teacher.Surname}"
                             TextTrimming="WordEllipsis"
@@ -140,6 +167,7 @@
                         <TextBlock
                             Margin="5,0,0,0"
                             HorizontalAlignment="Left"
+                            Foreground="{StaticResource PrimaryTextColor}"
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                             Text="{Binding CurrentSubject.Teacher.Email}"
                             TextTrimming="WordEllipsis"
@@ -164,8 +192,6 @@
                 CommandParameter="{x:Static subjectEnums:SubjectDetailDisplayType.AddHomework}"
                 Content="ADD HOMEWORK"
                 Foreground="{StaticResource PrimaryTextColor}"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                 ToolTip="MaterialDesignOutlinedButton" />
 
             <Button
@@ -177,9 +203,20 @@
                 CommandParameter="{x:Static subjectEnums:SubjectDetailDisplayType.AddExam}"
                 Content="ADD EXAM"
                 Foreground="{StaticResource PrimaryTextColor}"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                 ToolTip="MaterialDesignOutlinedButton" />
+
+            <WrapPanel.Style>
+                <Style TargetType="WrapPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding VisibileContent}" Value="1">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding VisibileContent}" Value="2">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </WrapPanel.Style>
         </WrapPanel>
 
         <WrapPanel
@@ -193,10 +230,12 @@
                     MinWidth="300"
                     HorizontalAlignment="Center"
                     Background="Transparent"
+                    Foreground="{StaticResource PrimaryTextColor}"
                     Header="Homework">
                     <local:Homework />
                 </Expander>
             </Border>
+
         </WrapPanel>
 
         <WrapPanel
@@ -221,28 +260,72 @@
             Grid.Column="0"
             Margin="15"
             HorizontalAlignment="Left"
-            Orientation="Vertical">
+            Orientation="Horizontal">
             <Button
                 MinWidth="300"
                 MinHeight="50"
                 Margin="0,0,5,5"
                 Background="{StaticResource SpecialBgBrush}"
+                Command="{Binding MarkSubjectDoneCommand}"
                 Content="MARK AS DONE"
                 Foreground="{StaticResource PrimaryTextColor}"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                Style="{StaticResource MaterialDesignOutlinedDarkButton}"
-                ToolTip="MaterialDesignOutlinedButton" />
+                ToolTip="MaterialDesignOutlinedButton">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignOutlinedDarkButton}" TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding VisibileContent}" Value="2">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
 
             <Button
                 MinWidth="300"
                 MinHeight="50"
                 Margin="0,0,5,5"
                 Background="{StaticResource ErrorBrush}"
+                Command="{Binding MarkSubjectFailedCommand}"
                 Content="MARK AS FAILED"
                 Foreground="{StaticResource PrimaryTextColor}"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                Style="{StaticResource MaterialDesignOutlinedDarkButton}"
-                ToolTip="MaterialDesignOutlinedButton" />
+                ToolTip="MaterialDesignOutlinedButton">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignOutlinedDarkButton}" TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding VisibileContent}" Value="1">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding VisibileContent}" Value="2">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button
+                MinWidth="300"
+                MinHeight="50"
+                Margin="0,0,5,5"
+                Background="{StaticResource ErrorBrush}"
+                Command="{Binding RetrySubjectCommand}"
+                Content="RETRY SUBJECT"
+                Foreground="{StaticResource PrimaryTextColor}"
+                ToolTip="MaterialDesignOutlinedButton">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignOutlinedDarkButton}" TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding VisibileContent}" Value="2">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding VisibileContent}" Value="0">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </WrapPanel>
     </Grid>
 </UserControl>

@@ -45,9 +45,21 @@
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
                                 FontSize="20"
-                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                 Text="{Binding Name}"
-                                TextWrapping="Wrap" />
+                                TextWrapping="Wrap">
+                                <TextBlock.Style>
+                                    <Style BasedOn="{StaticResource MaterialDesignSubtitle1TextBlock}" TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsFailed}" Value="True">
+                                                <Setter Property="Foreground" Value="{StaticResource ErrorBrush}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsCompleted}" Value="True">
+                                                <Setter Property="Foreground" Value="{StaticResource SuccessBrush}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                             <Button
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -89,7 +101,7 @@
                             Width="20"
                             Height="20"
                             Margin="4"
-                            Foreground="{Binding IsCompleted, Converter={StaticResource BoolToColorConverter}, ConverterParameter='IsFailed'}"
+                            Foreground="{Binding IsFailed, Converter={StaticResource BoolToColorConverter}, ConverterParameter='IsFailed'}"
                             Kind="CloseCircle" />
                         <TextBlock
                             Margin="4"
@@ -142,7 +154,7 @@
                             CommandParameter="{Binding Id}"
                             Content="DETAILS"
                             FontSize="16"
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+                            Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
                     </StackPanel>
                 </Grid>
             </materialDesign:Card>
@@ -151,11 +163,118 @@
 
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            Width="auto"
+            Margin="0,25,0,15"
+            HorizontalAlignment="Left"
+            Orientation="Horizontal">
+
+            <Button
+                Height="50"
+                MinWidth="300"
+                Margin="15,0,15,0"
+                Background="{StaticResource SecondaryBgBrush}"
+                Command="{Binding NavigationCommand}"
+                CommandParameter="AddNewSubject"
+                Content="ADD NEW SUBJECT"
+                Foreground="{StaticResource PrimaryTextColor}"
+                IsEnabled="{Binding HomeworkForm.IsAddHomeworkButtonEnabled}"
+                Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
+            <ComboBox
+                Height="50"
+                MinWidth="100"
+                materialDesign:HintAssist.Hint="Filter by"
+                Background="{StaticResource TerciaryBgBrush}"
+                RenderTransformOrigin="0.51,0.48"
+                SelectedItem="{Binding FilterSetter, Mode=TwoWay}"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                <ComboBoxItem Content="Alphabet " />
+                <ComboBoxItem Content="Completed " />
+                <ComboBoxItem Content="Failed " />
+                <ComboBoxItem Content="SubjectType " />
+            </ComboBox>
+            <Button
+                Margin="15,0,15,0"
+                Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"
+                Command="{Binding ChangeFiltersOrderCommand}"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                Style="{StaticResource MaterialDesignIconButton}"
+                ToolTip="MaterialDesignIconButton">
+                <materialDesign:PackIcon Width="30" Height="30">
+                    <materialDesign:PackIcon.Style>
+                        <Style TargetType="materialDesign:PackIcon">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding FilterOrder}" Value="Ascending">
+                                    <Setter Property="Kind" Value="ArrowDownThin" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding FilterOrder}" Value="Descending">
+                                    <Setter Property="Kind" Value="ArrowUpThin" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:PackIcon.Style>
+                </materialDesign:PackIcon>
+            </Button>
+
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShouldDisplayTeachersView}" Value="true">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ShouldDisplayTeachersView}" Value="false">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="0"
+            Width="auto"
+            Margin="0,25,0,15"
+            HorizontalAlignment="Left"
+            Orientation="Horizontal">
+
+            <Button
+                Height="50"
+                MinWidth="300"
+                Margin="15,0,15,0"
+                Background="{StaticResource ErrorBrush}"
+                Command="{Binding SetToInitialViewCommand}"
+                Content="Reset View"
+                Foreground="{StaticResource PrimaryTextColor}"
+                IsEnabled="{Binding HomeworkForm.IsAddHomeworkButtonEnabled}"
+                Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
+
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShouldDisplayTeachersView}" Value="false">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ShouldDisplayTeachersView}" Value="true">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+        </StackPanel>
+
         <ItemsControl
             Name="SubjectsList"
+            Grid.Row="1"
             Width="auto"
             Height="auto"
             Padding="10"
+            HorizontalAlignment="Left"
             ItemTemplate="{StaticResource SubjectCardTemplate}"
             ItemsSource="{Binding Subjects}">
             <ItemsControl.ItemsPanel>

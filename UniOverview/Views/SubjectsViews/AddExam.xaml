@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:UniOverview.Views.SubjectsViews"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:subjectEnums="clr-namespace:UniOverview.Enums.Subjects"
@@ -20,7 +19,6 @@
         </Grid.ColumnDefinitions>
 
         <WrapPanel Grid.Row="0" Margin="115,5,0,5">
-
             <DatePicker
                 MinWidth="200"
                 Margin="0,0,15,15"
@@ -37,53 +35,33 @@
                 Is24Hours="True"
                 SelectedTime="{Binding ExamForm.NewExamTime, Mode=TwoWay}"
                 Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
-
         </WrapPanel>
 
         <WrapPanel Grid.Row="1" Margin="115,15,0,5">
-            <ContentControl Grid.Row="1" Grid.Column="0">
-                <ContentControl.Style>
-                    <Style TargetType="ContentControl">
+            <Button
+                MinWidth="200"
+                Margin="0,0,15,15"
+                Background="{StaticResource PrimaryBgBrush}"
+                Command="{Binding AddExamWorkCommand}"
+                Foreground="{StaticResource PrimaryTextColor}"
+                ToolTip="MaterialDesignOutlinedButton">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignOutlinedDarkButton}" TargetType="Button">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ExamForm.IsAddExamButtonEnabled}" Value="true">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <Button
-                                            MinWidth="200"
-                                            Margin="0,0,15,15"
-                                            Background="{StaticResource PrimaryBgBrush}"
-                                            Command="{Binding ExamForm.AddExamWorkCommand}"
-                                            Content="SUBMIT"
-                                            Foreground="{StaticResource PrimaryTextColor}"
-                                            Style="{StaticResource MaterialDesignOutlinedDarkButton}"
-                                            ToolTip="MaterialDesignOutlinedButton" />
-                                    </Setter.Value>
-                                </Setter>
+                            <DataTrigger Binding="{Binding ExamForm.IsAddExamButtonEnabled}" Value="True">
+                                <Setter Property="Content" Value="Submit" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding IsAddExamButtonEnabled}" Value="false">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <Button
-                                            MinWidth="200"
-                                            Margin="0,0,15,15"
-                                            materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                                            materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                                            materialDesign:ButtonProgressAssist.Value="1"
-                                            Background="{StaticResource PrimaryBgBrush}"
-                                            Command="{Binding AddExamWorkCommand}"
-                                            Content="Loading..."
-                                            Foreground="{StaticResource PrimaryTextColor}"
-                                            IsEnabled="False"
-                                            Style="{StaticResource MaterialDesignOutlinedDarkButton}"
-                                            ToolTip="MaterialDesignOutlinedButton" />
-                                    </Setter.Value>
-                                </Setter>
+                            <DataTrigger Binding="{Binding ExamForm.IsAddExamButtonEnabled}" Value="False">
+                                <Setter Property="Content" Value="...Loading" />
+                                <Setter Property="IsEnabled" Value="False" />
+                                <Setter Property="materialDesign:ButtonProgressAssist.IsIndeterminate" Value="true" />
+                                <Setter Property="materialDesign:ButtonProgressAssist.IsIndicatorVisible" Value="True" />
+                                <Setter Property="materialDesign:ButtonProgressAssist.Value" Value="0" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </ContentControl.Style>
-            </ContentControl>
-
+                </Button.Style>
+            </Button>
             <Button
                 MinWidth="200"
                 Margin="0,0,15,15"
@@ -92,7 +70,6 @@
                 CommandParameter="{x:Static subjectEnums:SubjectDetailDisplayType.Content}"
                 Content="BACK"
                 Foreground="{StaticResource PrimaryTextColor}"
-                IsEnabled="{Binding ExamForm.IsAddHomeworkButtonEnabled}"
                 Style="{StaticResource MaterialDesignOutlinedDarkButton}"
                 ToolTip="MaterialDesignOutlinedButton" />
         </WrapPanel>

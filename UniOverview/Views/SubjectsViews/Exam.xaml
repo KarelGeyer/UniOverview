@@ -10,7 +10,10 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
-        <ListView Margin="10,0,0,15" ItemsSource="{Binding CurrentSubject.ExamHistory}">
+        <ListView
+            Margin="10,0,0,15"
+            Foreground="{StaticResource PrimaryTextColor}"
+            ItemsSource="{Binding CurrentSubject.ExamHistory}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="150" Header="Participated">
@@ -19,6 +22,7 @@
                                 <CheckBox
                                     Margin="45,0"
                                     VerticalAlignment="Center"
+                                    Background="{StaticResource PrimaryTextColor}"
                                     IsChecked="{Binding Participated}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

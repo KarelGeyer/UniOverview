@@ -46,6 +46,7 @@
                 <TextBlock
                     Grid.Column="1"
                     HorizontalAlignment="Left"
+                    Foreground="{StaticResource PrimaryTextColor}"
                     Style="{StaticResource MaterialDesignHeadline3TextBlock}"
                     Text="{Binding CurrentSubject.Name}"
                     TextTrimming="WordEllipsis"
@@ -63,6 +64,7 @@
                                     <local:SubjectDetailContent />
                                 </Setter.Value>
                             </Setter>
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ContentToBeDisplayed}" Value="{x:Static subjectEnums:SubjectDetailDisplayType.AddHomework}">
                             <Setter Property="Content">
@@ -70,6 +72,7 @@
                                     <local:AddHomework />
                                 </Setter.Value>
                             </Setter>
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ContentToBeDisplayed}" Value="{x:Static subjectEnums:SubjectDetailDisplayType.AddExam}">
                             <Setter Property="Content">
@@ -77,6 +80,7 @@
                                     <local:AddExam />
                                 </Setter.Value>
                             </Setter>
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

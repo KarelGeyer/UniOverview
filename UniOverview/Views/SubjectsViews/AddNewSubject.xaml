@@ -1,0 +1,239 @@
+﻿<UserControl
+    x:Class="UniOverview.Views.SubjectsViews.AddNewSubject"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:subjectEnums="clr-namespace:UniOverview.Enums.Subjects"
+    d:DesignHeight="650"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            Margin="115,50,0,30"
+            HorizontalAlignment="Left"
+            Foreground="{StaticResource PrimaryTextColor}"
+            Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+            Text="Add Subject"
+            TextTrimming="WordEllipsis"
+            TextWrapping="Wrap" />
+
+        <TextBlock
+            Grid.Row="1"
+            Width="182"
+            Margin="115,0,0,0"
+            HorizontalAlignment="Left"
+            Foreground="{StaticResource PrimaryTextColor}"
+            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+            Text="Basic Details"
+            TextTrimming="WordEllipsis"
+            TextWrapping="Wrap" />
+
+        <WrapPanel Grid.Row="2" Margin="115,10,0,0">
+            <TextBox
+                MinWidth="200"
+                Margin="0,0,15,15"
+                VerticalAlignment="Top"
+                materialDesign:HintAssist.Hint="Name"
+                Foreground="{StaticResource PrimaryTextColor}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding SubjectName, Mode=TwoWay}" />
+            <TextBox
+                MinWidth="200"
+                Margin="0,0,15,15"
+                VerticalAlignment="Top"
+                materialDesign:HintAssist.Hint="ShortName"
+                Foreground="{StaticResource PrimaryTextColor}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding ShortName, Mode=TwoWay}" />
+            <TextBox
+                MinWidth="200"
+                Margin="0,0,15,0"
+                VerticalAlignment="Top"
+                materialDesign:HintAssist.Hint="Credits"
+                Foreground="{StaticResource PrimaryTextColor}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding Credits, Mode=TwoWay}" />
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="3">
+            <TextBlock
+                Width="182"
+                Margin="115,10,0,0"
+                HorizontalAlignment="Left"
+                Foreground="{StaticResource PrimaryTextColor}"
+                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                Text="Teacher Details"
+                TextTrimming="WordEllipsis"
+                TextWrapping="Wrap" />
+
+            <Button
+                MaxWidth="300"
+                Margin="0,10,0,0"
+                Background="{StaticResource SpecialBgBrush}"
+                Command="{Binding SetIsChoosingTeacherCommand}"
+                Foreground="{StaticResource PrimaryTextColor}"
+                IsEnabled="{Binding HomeworkForm.IsAddHomeworkButtonEnabled}"
+                ToolTip="MaterialDesignOutlinedButton">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignOutlinedDarkButton}" TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChoosingTeacher}" Value="true">
+                                <Setter Property="Content" Value="Add Teacher" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsChoosingTeacher}" Value="false">
+                                <Setter Property="Content" Value="Choose Teacher" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="4" Margin="115,10,0,5">
+            <TextBox
+                MinWidth="200"
+                Margin="0,0,15,15"
+                VerticalAlignment="Top"
+                materialDesign:HintAssist.Hint="Name"
+                Foreground="{StaticResource PrimaryTextColor}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding TeacherName, Mode=TwoWay}" />
+            <TextBox
+                MinWidth="200"
+                Margin="0,0,15,15"
+                VerticalAlignment="Top"
+                materialDesign:HintAssist.Hint="Surname"
+                Foreground="{StaticResource PrimaryTextColor}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding TeacherSurname, Mode=TwoWay}" />
+            <TextBox
+                MinWidth="200"
+                Margin="0,0,15,15"
+                VerticalAlignment="Top"
+                materialDesign:HintAssist.Hint="Email"
+                Foreground="{StaticResource PrimaryTextColor}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding TeacherEmail, Mode=TwoWay}" />
+            <ComboBox
+                MinWidth="200"
+                Margin="0,0,15,15"
+                materialDesign:HintAssist.Hint="Degree"
+                ItemsSource="{Binding Titles}"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+            <WrapPanel.Style>
+                <Style TargetType="WrapPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsChoosingTeacher}" Value="true">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsChoosingTeacher}" Value="false">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </WrapPanel.Style>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="4" Margin="115,10,0,5">
+            <ComboBox
+                MinWidth="200"
+                Margin="0,0,15,15"
+                materialDesign:HintAssist.Hint="Teacher"
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding TeachersNames}"
+                SelectedItem="{Binding ChosenTeacherName, Mode=TwoWay}"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+            <WrapPanel.Style>
+                <Style TargetType="WrapPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsChoosingTeacher}" Value="true">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsChoosingTeacher}" Value="false">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </WrapPanel.Style>
+        </WrapPanel>
+
+
+        <TextBlock
+            Grid.Row="5"
+            Width="182"
+            Margin="115,0,0,0"
+            HorizontalAlignment="Left"
+            Foreground="{StaticResource PrimaryTextColor}"
+            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+            Text="Completion Details"
+            TextTrimming="WordEllipsis"
+            TextWrapping="Wrap" />
+
+        <WrapPanel Grid.Row="6" Margin="115,10,0,0">
+            <ComboBox
+                MinWidth="200"
+                Margin="0,0,15,15"
+                materialDesign:HintAssist.Hint="Subject Type"
+                SelectedItem="{Binding TypeOfSubject, Mode=TwoWay}"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                <ComboBoxItem Content="{x:Static subjectEnums:SubjectType.A}" />
+                <ComboBoxItem Content="{x:Static subjectEnums:SubjectType.B}" />
+                <ComboBoxItem Content="{x:Static subjectEnums:SubjectType.C}" />
+            </ComboBox>
+            <ComboBox
+                MinWidth="200"
+                Margin="0,0,15,15"
+                materialDesign:HintAssist.Hint="Type Of Completion"
+                SelectedItem="{Binding SubjectTypeOfCompletion, Mode=TwoWay}"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                <ComboBoxItem Content="{x:Static subjectEnums:TypeOfCompletion.Oral}" />
+                />
+                <ComboBoxItem Content="{x:Static subjectEnums:TypeOfCompletion.Written}" />
+                />
+                <ComboBoxItem Content="{x:Static subjectEnums:TypeOfCompletion.Combined}" />
+                />
+            </ComboBox>
+            <ComboBox
+                MinWidth="200"
+                Margin="0,0,15,15"
+                materialDesign:HintAssist.Hint="Form Of Completion"
+                SelectedItem="{Binding SubjectFormOfCompletion, Mode=TwoWay}"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                <ComboBoxItem Content="{x:Static subjectEnums:FormOfCompletion.Exam}" />
+                <ComboBoxItem Content="{x:Static subjectEnums:FormOfCompletion.PreExamCredit}" />
+                />
+            </ComboBox>
+        </WrapPanel>
+
+        <Button
+            Grid.Row="7"
+            MaxWidth="300"
+            Margin="0,25,15,15"
+            Background="{StaticResource SpecialBgBrush}"
+            Command="{Binding AddSubjectCommand}"
+            Content="ADD NEW SUBJECT"
+            Foreground="{StaticResource PrimaryTextColor}"
+            IsEnabled="{Binding HomeworkForm.IsAddHomeworkButtonEnabled}"
+            Style="{StaticResource MaterialDesignOutlinedDarkButton}"
+            ToolTip="MaterialDesignOutlinedButton" />
+    </Grid>
+</UserControl>
