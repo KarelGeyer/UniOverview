@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,42 +8,60 @@ using System.Windows.Input;
 using UniOverview.Commands;
 using UniOverview.Enums.Subjects;
 using UniOverview.Models.Subjects;
+using UniOverview.Services.mock;
 
 namespace UniOverview.ViewModels.Subjects
 {
 	public class SubjectViewModel : ViewModelBase
 	{
 		#region Private Properties
-		private Subject currentSubject { get; set; }
+		private Guid CurrentHomeworkId { get; set; }
+		private SubjectCollectionDataService SubjectCollectionDataService { get; set; }
 		#endregion
 
 		#region Public Properties
-		public Subject CurrentSubject => currentSubject;
+		public Subject? CurrentSubject { get; set; }
 		public SubjectDetailDisplayType ContentToBeDisplayed { get; set; }
-		public HomeworkForm HomeworkForm { get; set; } = new();
-		public ExamForm ExamForm { get; set; } = new();
+		public HomeworkForm HomeworkForm { get; set; }
+		public ExamForm ExamForm { get; set; }
+		public int VisibileContent { get; set; } = 0;
 		#endregion
 
 		#region Commands
 		public ICommand ButtonHandlerCommand { get; set; }
 		public ICommand AddHomeWorkCommand { get; set; }
 		public ICommand AddExamWorkCommand { get; set; }
+		public ICommand MarkSubjectFailedCommand { get; set; }
+		public ICommand MarkSubjectDoneCommand { get; set; }
+		public ICommand RetrySubjectCommand { get; set; }
+		public ICommand SetCurrentHomeworkCommand { get; set; }
 		#endregion
 
-		public SubjectViewModel()
+		public SubjectViewModel(SubjectCollectionDataService _subjectCollectionDataService)
 		{
 			ContentToBeDisplayed = SubjectDetailDisplayType.Content;
+
+			HomeworkForm = new HomeworkForm();
+			ExamForm = new ExamForm();
+
 			ButtonHandlerCommand = new BaseButtonCommand(ChangeChildView);
 			AddHomeWorkCommand = new BaseButtonCommand(null, AddHomeWork);
 			AddExamWorkCommand = new BaseButtonCommand(null, AddExam);
+			MarkSubjectFailedCommand = new BaseButtonCommand(null, MarkSubjectFailed);
+			MarkSubjectDoneCommand = new BaseButtonCommand(null, MarkSubjectDone);
+			RetrySubjectCommand = new BaseButtonCommand(null, RetrySubject);
+			SetCurrentHomeworkCommand = new BaseButtonCommand(SetHomeworkForm);
+
+			SubjectCollectionDataService = _subjectCollectionDataService;
 		}
 
-		public void SetCurrentSubject(Subject subject)
+		public void OnPageDisplay(Subject subject)
 		{
-			currentSubject = subject;
+			SetCurrentSubject(subject);
+			ManageContentVisibility();
 		}
 
-		public void ChangeChildView(object? displayType)
+		private void ChangeChildView(object? displayType)
 		{
 			if (displayType is null)
 				throw new ArgumentNullException(nameof(displayType));
@@ -54,46 +73,34 @@ namespace UniOverview.ViewModels.Subjects
 			OnPropertyChanged(nameof(ContentToBeDisplayed));
 		}
 
-		public async void AddHomeWork()
+		private async void AddHomeWork()
 		{
 			// TODO: Add validation
-			if (HomeworkForm!.NewHomeworkName!.Equals(null) || HomeworkForm.NewHomeworkName.Equals(String.Empty))
-			{
-				return;
-			}
-
 			if (
-				HomeworkForm.NewHomeworkDateToComplete.Equals(null)
+				HomeworkForm!.NewHomeworkName!.Equals(null)
+				|| HomeworkForm.NewHomeworkName.Equals(String.Empty)
+				|| HomeworkForm.NewHomeworkDateToComplete.Equals(null)
 				|| HomeworkForm.NewHomeworkDateToComplete.Equals(DateTime.MinValue)
+				|| HomeworkForm.NewHomeworkMaxPoints.Equals(0)
+				|| HomeworkForm!.NewHomeworkType!.Equals(null)
+				|| HomeworkForm.NewHomeworkType.Equals(String.Empty)
 			)
-			{
 				return;
-			}
 
-			if (HomeworkForm.NewHomeworkMaxPoints.Equals(0))
-			{
-				return;
-			}
-
-			if (HomeworkForm!.NewHomeworkType!.Equals(null) || HomeworkForm.NewHomeworkType.Equals(String.Empty))
-			{
-				return;
-			}
-
-			HomeworkForm.IsAddHomeworkButtonEnabled = false;
+			SetIsExamButtonEnable(false);
 			OnPropertyChanged(nameof(HomeworkForm));
 
 			HomeworkType homeworkType = (HomeworkType)
-				Enum.Parse(
-					typeof(HomeworkType),
-					HomeworkForm.NewHomeworkType.Replace("System.Windows.Controls.ComboBoxItem: ", "")
-				);
+				Enum.Parse(typeof(HomeworkType), HomeworkForm.NewHomeworkType.Replace("System.Windows.Controls.ComboBoxItem: ", ""));
+
+			if (CurrentSubject?.Id == null)
+				return;
 
 			Homework newHomework =
 				new()
 				{
 					Id = Guid.NewGuid(),
-					SubjectId = currentSubject.Id,
+					SubjectId = CurrentSubject.Id,
 					Name = HomeworkForm.NewHomeworkName,
 					Type = homeworkType,
 					MaxPoints = HomeworkForm.NewHomeworkMaxPoints,
@@ -105,27 +112,25 @@ namespace UniOverview.ViewModels.Subjects
 			// Add timeouts before adding backend
 			await Task.Delay(3000);
 
-			currentSubject!.Homeworks!.Add(newHomework);
-			OnPropertyChanged(nameof(currentSubject));
+			CurrentSubject!.Homeworks!.Add(newHomework);
+			OnPropertyChanged(nameof(CurrentSubject));
 			SetFormToEmpty();
 			ButtonHandlerCommand.Execute(SubjectDetailDisplayType.Content);
-			HomeworkForm.IsAddHomeworkButtonEnabled = true;
+			SetIsExamButtonEnable(true);
 		}
 
-		public async void AddExam()
+		private async void AddExam()
 		{
 			// TODO: Add validation
-			if (ExamForm.NewExamDate.Equals(null) || ExamForm.NewExamDate.Equals(DateTime.MinValue))
-			{
+			if (
+				ExamForm.NewExamDate.Equals(null)
+				|| ExamForm.NewExamDate.Equals(DateTime.MinValue)
+				|| ExamForm.NewExamTime.Equals(null)
+				|| ExamForm.NewExamTime.Equals(DateTime.MinValue)
+			)
 				return;
-			}
 
-			if (ExamForm.NewExamTime.Equals(null) || ExamForm.NewExamTime.Equals(DateTime.MinValue))
-			{
-				return;
-			}
-
-			ExamForm.IsAddExamButtonEnabled = false;
+			SetIsExamButtonEnable(false);
 			OnPropertyChanged(nameof(ExamForm));
 
 			DateTime dateWithoutTime = (DateTime)ExamForm.NewExamDate;
@@ -140,11 +145,14 @@ namespace UniOverview.ViewModels.Subjects
 				onlyTime.Minute
 			);
 
+			if (CurrentSubject?.Id == null)
+				return;
+
 			Exam newExam =
 				new()
 				{
 					Id = Guid.NewGuid(),
-					SubjectId = currentSubject.Id,
+					SubjectId = CurrentSubject.Id,
 					Date = combinedDateTime,
 					Result = Enums.ExamResult.NotYetGraded,
 				};
@@ -152,14 +160,68 @@ namespace UniOverview.ViewModels.Subjects
 			// Add timeouts before adding backend
 			await Task.Delay(3000);
 
-			currentSubject.ExamHistory.Add(newExam);
-			OnPropertyChanged(nameof(currentSubject));
+			CurrentSubject?.ExamHistory?.Add(newExam);
+			OnPropertyChanged(nameof(CurrentSubject));
 			SetFormToEmpty();
 			ButtonHandlerCommand.Execute(SubjectDetailDisplayType.Content);
-			ExamForm.IsAddExamButtonEnabled = true;
+			SetIsExamButtonEnable(true);
 		}
 
-		public void SetFormToEmpty()
+		private void SetHomeworkForm(object? id)
+		{
+			if (id == null)
+				return;
+			Guid homeworkId = (Guid)id;
+			Homework? currentHomerwork = SubjectCollectionDataService.GetHomeworkById(CurrentSubject.Id, homeworkId);
+			if (currentHomerwork == null)
+				return;
+			SetCurrentHomeworkId(currentHomerwork.Id);
+			SetHomeworkFormState(HomeworkFormState.EDIT);
+			ButtonHandlerCommand.Execute(SubjectDetailDisplayType.AddHomework);
+		}
+
+		private void EditHomework() { }
+
+		private void MarkSubjectFailed()
+		{
+			if (CurrentSubject?.Id != null)
+				SetIsFailed(true);
+			ManageContentVisibility();
+		}
+
+		private void MarkSubjectDone()
+		{
+			if (CurrentSubject?.Id != null)
+				SetIsCompleted(true);
+			ManageContentVisibility();
+		}
+
+		private void RetrySubject()
+		{
+			if (CurrentSubject?.Id != null)
+				SetIsFailed(false);
+			ManageContentVisibility();
+		}
+
+		private void ManageContentVisibility()
+		{
+			if (CurrentSubject == null)
+				return;
+
+			if (CurrentSubject.IsFailed)
+				VisibileContent = 1;
+
+			if (CurrentSubject.IsCompleted)
+				VisibileContent = 2;
+
+			if (!CurrentSubject!.IsCompleted && !CurrentSubject!.IsFailed)
+				VisibileContent = 0;
+
+			OnPropertyChanged(nameof(CurrentSubject));
+			OnPropertyChanged(nameof(VisibileContent));
+		}
+
+		private void SetFormToEmpty()
 		{
 			HomeworkForm.NewHomeworkName = string.Empty;
 			HomeworkForm.NewHomeworkDateToComplete = null;
@@ -168,5 +230,41 @@ namespace UniOverview.ViewModels.Subjects
 			ExamForm.NewExamDate = null;
 			ExamForm.NewExamTime = null;
 		}
+
+		#region SETTERS
+		private void SetCurrentSubject(Subject subject)
+		{
+			CurrentSubject = subject;
+		}
+
+		private void SetIsFailed(bool value)
+		{
+			if (CurrentSubject == null)
+				return;
+			CurrentSubject.IsFailed = value;
+		}
+
+		private void SetIsCompleted(bool value)
+		{
+			if (CurrentSubject == null)
+				return;
+			CurrentSubject.IsCompleted = value;
+		}
+
+		private void SetIsExamButtonEnable(bool value)
+		{
+			ExamForm.IsAddExamButtonEnabled = value;
+		}
+
+		private void SetCurrentHomeworkId(Guid value)
+		{
+			CurrentHomeworkId = value;
+		}
+
+		private void SetHomeworkFormState(HomeworkFormState state)
+		{
+			HomeworkForm.FormState = state;
+		}
+		#endregion
 	}
 }

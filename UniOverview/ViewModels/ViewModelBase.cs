@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UniOverview.Interface;
 
 namespace UniOverview.ViewModels
 {
-	public class ViewModelBase : INotifyPropertyChanged
+	public class ViewModelBase : INotifyPropertyChanged, IViewModelBase
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -17,5 +18,7 @@ namespace UniOverview.ViewModels
 		}
 
 		public virtual void Dispose() { }
+
+		public virtual void OnLoad() { }
 	}
 }
