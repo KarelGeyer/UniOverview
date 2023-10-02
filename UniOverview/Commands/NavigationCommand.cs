@@ -30,18 +30,13 @@ namespace UniOverview.Commands
 					return;
 
 				SubjectsBaseViewModel.ManageChildView((Guid)parameter);
-				NavigationService.CurrentViewModel = NavigationService.GetExistingViewModels
-					.Where(x => x.Key == "SubjectDetail")
-					.First()
-					.Value;
+				NavigationService.CurrentViewModel = NavigationService.GetExistingViewModels.Where(x => x.Key == "SubjectDetail").First().Value;
 
 				return;
 			}
 
-			NavigationService.CurrentViewModel = NavigationService.GetExistingViewModels
-				.Where(x => x.Key == parameter as string)
-				.First()
-				.Value;
+			NavigationService.CurrentViewModel = NavigationService.GetExistingViewModels.Where(x => x.Key == parameter as string).First().Value;
+			NavigationService.CurrentViewModel.OnLoad();
 		}
 
 		private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
