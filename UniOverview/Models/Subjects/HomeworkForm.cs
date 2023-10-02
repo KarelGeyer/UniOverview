@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UniOverview.Enums.Subjects;
 
 namespace UniOverview.Models.Subjects
 {
@@ -13,5 +14,7 @@ namespace UniOverview.Models.Subjects
 		public int NewHomeworkMaxPoints { get; set; }
 		public string? NewHomeworkType { get; set; }
 		public bool IsAddHomeworkButtonEnabled { get; set; } = true;
+		public int HomeworkPoints { get; set; }
+		public HomeworkFormState FormState { get; set; } = HomeworkFormState.ADD;
 	}
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UniOverview.Enums;
 using UniOverview.Enums.Subjects;
+using UniOverview.Models.Teachers;
 
 namespace UniOverview.Models.Subjects
 {
@@ -20,7 +21,7 @@ namespace UniOverview.Models.Subjects
 		public string? SubjectTypeIcon { get; set; }
 		public string? SubjectTypeColor { get; set; }
 		public Teacher? Teacher { get; set; }
-		public required List<Exam> ExamHistory { get; set; }
+		public List<Exam>? ExamHistory { get; set; }
 		public List<Homework>? Homeworks { get; set; }
 		public Grade? Grade { get; set; }
 		public SubjectType? SubjectType { get; set; }
