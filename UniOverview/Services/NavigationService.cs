@@ -15,6 +15,8 @@ namespace UniOverview.Services
 		private ViewModelBase MaterialsViewModel;
 		private ViewModelBase SubjectsViewModel;
 		private ViewModelBase SubjectDetailViewModel;
+		private ViewModelBase AddNewSubjectViewModel;
+		private ViewModelBase TeachersViewModel;
 
 		private Dictionary<string, ViewModelBase> ViewModels;
 
@@ -33,6 +35,7 @@ namespace UniOverview.Services
 			}
 		}
 
+		#region HOME
 		public ViewModelBase NavHomeViewModel
 		{
 			get => HomeViewModel;
@@ -42,7 +45,9 @@ namespace UniOverview.Services
 				ViewModels.Add("Home", value);
 			}
 		}
+		#endregion
 
+		#region MATERIALS
 		public ViewModelBase NavMaterialsViewModel
 		{
 			get => MaterialsViewModel;
@@ -52,7 +57,9 @@ namespace UniOverview.Services
 				ViewModels.Add("Materials", value);
 			}
 		}
+		#endregion
 
+		#region SUBJECTS
 		public ViewModelBase NavSubjectsViewModel
 		{
 			get => SubjectsViewModel;
@@ -72,6 +79,29 @@ namespace UniOverview.Services
 				ViewModels.Add("SubjectDetail", value);
 			}
 		}
+
+		public ViewModelBase NavAddNewSubjectViewModel
+		{
+			get => AddNewSubjectViewModel;
+			set
+			{
+				AddNewSubjectViewModel = value;
+				ViewModels.Add("AddNewSubject", value);
+			}
+		}
+		#endregion
+
+		#region TEACHERS
+		public ViewModelBase NavTeachersViewModel
+		{
+			get => TeachersViewModel;
+			set
+			{
+				TeachersViewModel = value;
+				ViewModels.Add("Teachers", value);
+			}
+		}
+		#endregion
 
 		public Dictionary<string, ViewModelBase> GetExistingViewModels
 		{
