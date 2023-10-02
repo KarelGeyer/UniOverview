@@ -9,10 +9,12 @@ using System.Runtime.InteropServices.JavaScript;
 using System.Threading.Tasks;
 using System.Windows;
 using UniOverview.Services;
+using UniOverview.Services.mock;
 using UniOverview.ViewModels;
 using UniOverview.ViewModels.Home;
 using UniOverview.ViewModels.Materials;
 using UniOverview.ViewModels.Subjects;
+using UniOverview.ViewModels.Teachers;
 
 namespace UniOverview
 {
@@ -29,6 +31,8 @@ namespace UniOverview
 					{
 						// SERVICES
 						services.AddSingleton<NavigationService>();
+						services.AddSingleton<SubjectCollectionDataService>();
+						services.AddSingleton<TeachersCollectionDataService>();
 
 						//VIEWMODELS
 						services.AddSingleton<MainViewModel>();
@@ -38,6 +42,8 @@ namespace UniOverview
 						services.AddSingleton<HomeBaseViewModel>();
 						services.AddSingleton<SubjectViewModel>();
 						services.AddSingleton<SideMenuViewModel>();
+						services.AddSingleton<AddNewSubjectViewModel>();
+						services.AddSingleton<TeachersBaseViewModel>();
 
 						_serviceProvider = services.BuildServiceProvider();
 					}
@@ -71,6 +77,8 @@ namespace UniOverview
 			navigationService.NavMaterialsViewModel = _serviceProvider.GetService<MaterialsBaseViewModel>()!;
 			navigationService.NavSubjectsViewModel = _serviceProvider.GetService<SubjectsBaseViewModel>()!;
 			navigationService.NavSubjectDetailViewModel = _serviceProvider.GetService<SubjectViewModel>()!;
+			navigationService.NavAddNewSubjectViewModel = _serviceProvider.GetService<AddNewSubjectViewModel>()!;
+			navigationService.NavTeachersViewModel = _serviceProvider.GetService<TeachersBaseViewModel>()!;
 		}
 	}
 }

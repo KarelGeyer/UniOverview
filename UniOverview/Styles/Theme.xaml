@@ -1,7 +1,5 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <!--  Background Colors  -->
     <Color x:Key="PrimaryBg">#232F34</Color>
     <Color x:Key="SecondaryBg">#344955</Color>
@@ -26,4 +24,8 @@
     <!--  ERROR  -->
     <SolidColorBrush x:Key="ErrorBrush">#ff0f0f</SolidColorBrush>
     <Color x:Key="ErrorColor">#ff0f0f</Color>
+
+    <!--  SUCCESS  -->
+    <SolidColorBrush x:Key="SuccessBrush">#82ff50</SolidColorBrush>
+    <Color x:Key="SuccessColor">#82ff50</Color>
 </ResourceDictionary>
